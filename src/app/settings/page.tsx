@@ -9,6 +9,7 @@ import { signOut } from "next-auth/react";
 import Swal from 'sweetalert2';
 
 import { Center } from '@/components/Center';
+import PasswordToggleIcon from '@/components/PasswordToggleIcon';
 
 interface User{
   _id: string,
@@ -26,9 +27,9 @@ function SettingsPage(){
   const [ surname, setSurname ] = useState(userData?.surname || "");
   const [ avatar, setAvatar ] = useState("Seleccione una imagen");
   const fileInputRef = useRef<HTMLInputElement | null>(null);
-  const [ oldPassword, setOldPassword ] = useState("");
-  const [ newPassword, setNewPassword ] = useState("");
-  const [ confirmPassword, setConfirmPassword ] = useState("");
+
+  const [ showOldPassword, setShowOldPassword ] = useState(false);
+  const [ showNewPassword, setShowNewPassword ] = useState(false);
 
   useEffect(() => {
     if(userData){
@@ -216,11 +217,59 @@ function SettingsPage(){
                 {showMessage && <div className="fixed left-1/2 transform -translate-x-1/2 top-12 bg-red-500 text-white p-2 mb-2 rounded-md text-center">{error}</div>}
 
                 <label>Contraseña antigua: </label>
-                <input type='password' className="input-default my-2" name="oldPassword" value={oldPassword} onChange={e => setOldPassword(e.target.value)}/>
+                <div className="relative">
+                  <input 
+                    type={showOldPassword ? "text" : "password"}
+                    placeholder="Contraseña" 
+                    name="oldPassword" 
+                    className="input-default mb-4 px-4 py-2 w-full rounded-md" 
+                  />
+
+                  <button
+                    type="button"
+                    className="absolute right-3 top-2 text-gray-600"
+                    onClick={() => setShowOldPassword(prev => !prev)}
+                  >
+                    <PasswordToggleIcon isPasswordVisible={showOldPassword} colorIcon='#374151'/>
+                  </button>
+                </div>
+
                 <label className='my-2'>Nueva contraseña: </label>
-                <input type='password' className="input-default my-2"  name="newPassword" value={newPassword} onChange={e => setNewPassword(e.target.value)}/>
+                <div className="relative">
+                  <input 
+                    type={showNewPassword ? "text" : "password"}
+                    placeholder="Contraseña" 
+                    name="newPassword" 
+                    className="input-default mb-4 px-4 py-2 w-full rounded-md" 
+                  />
+
+                  <button
+                    type="button"
+                    className="absolute right-3 top-2 text-gray-600"
+                    onClick={() => setShowNewPassword(prev => !prev)}
+                  >
+                    <PasswordToggleIcon isPasswordVisible={showOldPassword} colorIcon='#374151'/>
+                  </button>
+                </div>
+                
                 <label className='my-2'>Confirmar contraseña: </label>
-                <input type='password' className="input-default my-2"  name="confirmPassword" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)}/>
+                <div className="relative">
+                  <input 
+                    type={showNewPassword ? "text" : "password"}
+                    placeholder="Contraseña" 
+                    name="confirmPassword" 
+                    className="input-default mb-4 px-4 py-2 w-full rounded-md" 
+                  />
+
+                  <button
+                    type="button"
+                    className="absolute right-3 top-2 text-gray-600"
+                    onClick={() => setShowNewPassword(prev => !prev)}
+                  >
+                    <PasswordToggleIcon isPasswordVisible={showOldPassword} colorIcon='#374151'/>
+                  </button>
+                </div>
+
                 <button className='btn-submit'>Actualizar</button>
             </form>
           </div>

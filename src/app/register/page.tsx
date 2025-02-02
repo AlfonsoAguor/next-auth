@@ -5,6 +5,7 @@ import { FormEvent, useState, useEffect } from "react"
 import axios, {AxiosError} from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import PasswordToggleIcon from "@/components/PasswordToggleIcon";
 
 function RegisterPage() {
   const [ error, setError ] = useState();
@@ -25,6 +26,7 @@ function RegisterPage() {
         surname: formData.get('surname'),
         email: formData.get('email'),
         password: formData.get('password'),
+        confirmPassword: formData.get('confirmPassword'),
       });
 
       const signinRes = await signIn('credentials', {
@@ -57,16 +59,50 @@ function RegisterPage() {
 
   return (
     <div className="bg-gray-900 h-screen flex flex-col justify-center items-center">
-      <div className="w-11/12 sm:w-1/2 lg:w-2/5 bg-slate-800 p-8 rounded-md relative">
+      <div className="w-11/12 sm:w-2/3 lg:w-1/4 bg-slate-800 p-8 rounded-md relative">
         <form onSubmit={handleSubmit}>
 
-          {showMessage && <div className="absolute left-1/2 transform -translate-x-1/2 top-[-5rem] bg-red-500 text-white p-2 mb-2 rounded-md text-center">{error}</div>}
+          {showMessage && <div className="absolute left-1/2 transform -translate-x-1/2 bg-red-500 text-white p-2 mb-2 rounded-md text-center">{error}</div>}
 
           <h1 className="pb-6 text-2xl text-center text-white">Registrate</h1>
           <input type='text' placeholder='nombre' name="name"/>
           <input type='text' placeholder='apellidos' name="surname"/>
           <input type='email' placeholder='correo' name="email"/>
-          <input type='password' placeholder='contraseña' name="password"/>
+
+          <div className="relative">
+            <input 
+              type={showPassword ? "text" : "password"}
+              placeholder="Contraseña" 
+              name="password" 
+              className="mb-4 px-4 py-2 w-full rounded-md" 
+            />
+
+            <button
+              type="button"
+              className="absolute right-3 top-2 text-gray-600"
+              onClick={() => setShowPassword(prev => !prev)}
+            >
+              <PasswordToggleIcon isPasswordVisible={showPassword} colorIcon="white"/>
+            </button>
+          </div>
+
+          <div className="relative">
+            <input 
+              type={showPassword ? "text" : "password"}
+              placeholder="Confirmar contraseña" 
+              name="confirmPassword" 
+              className="mb-4 px-4 py-2 w-full rounded-md" 
+            />
+
+            <button
+              type="button"
+              className="absolute right-3 top-2 text-gray-600"
+              onClick={() => setShowPassword(prev => !prev)}
+            >
+              <PasswordToggleIcon isPasswordVisible={showPassword} colorIcon="white"/>
+            </button>
+          </div>
+
           <button className='px-4 py-2 mt-2 w-full rounded-md font-bold shadow-lg bg-indigo-400 text-white hover:bg-indigo-500 duration-300'>
             Guardar
           </button>

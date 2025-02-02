@@ -5,14 +5,15 @@ import bcrypt from "bcryptjs";
 
 export async function POST(req: Request) {
   await connectDB();
-  const {email, password, name, surname} = await req.json();
+  const {email, password, confirmPassword, name, surname} = await req.json();
   
     try {
         const emailFound = await User.findOne({ email });
         if(emailFound) return NextResponse.json({ message: "El correo ya esta registrado" },{ status: 409} );
 
         if(!password || password.length < 6 ) return NextResponse.json({ message: "Contraseña debe de contener minimo 6 caracteres" },{ status: 409} );
-        
+        if(password !== confirmPassword) return NextResponse.json({ message: "Las constraseñas no coinciden" },{ status: 409} );
+
         const passHashed = await bcrypt.hash(password, 12);
         const user = new User({
             name,
