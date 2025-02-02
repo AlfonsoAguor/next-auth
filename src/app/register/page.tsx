@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 function RegisterPage() {
   const [ error, setError ] = useState();
   const [ showMessage, setShowMessage ] = useState(false);
+  const [ showPassword, setShowPassword ] = useState(false);
   const router = useRouter();
   const { data: session } = useSession();
 
@@ -56,7 +57,7 @@ function RegisterPage() {
 
   return (
     <div className="bg-gray-900 h-screen flex flex-col justify-center items-center">
-      <div className="w-1/4 bg-slate-800 p-8 rounded-md relative">
+      <div className="w-11/12 sm:w-1/2 lg:w-2/5 bg-slate-800 p-8 rounded-md relative">
         <form onSubmit={handleSubmit}>
 
           {showMessage && <div className="absolute left-1/2 transform -translate-x-1/2 top-[-5rem] bg-red-500 text-white p-2 mb-2 rounded-md text-center">{error}</div>}

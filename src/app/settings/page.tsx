@@ -26,6 +26,9 @@ function SettingsPage(){
   const [ surname, setSurname ] = useState(userData?.surname || "");
   const [ avatar, setAvatar ] = useState("Seleccione una imagen");
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const [ oldPassword, setOldPassword ] = useState("");
+  const [ newPassword, setNewPassword ] = useState("");
+  const [ confirmPassword, setConfirmPassword ] = useState("");
 
   useEffect(() => {
     if(userData){
@@ -97,8 +100,36 @@ function SettingsPage(){
         id: userData?._id,
         name: formData.get('name'),
         surname: formData.get('surname'),
+        typeUpdate: "user",
       });
 
+      if (updateRes.status === 200) {
+        changeSuccess();
+      }
+
+    } catch (error) {
+      if(error instanceof AxiosError){
+        setError(error.response?.data.message);
+        setShowMessage(true);
+      }
+    }
+  }
+
+  const handleSubmitPassword = async ( e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+
+    setShowMessage(false);
+
+    try {
+      const updateRes = await axios.put('/api/user', {
+        id: userData?._id,
+        oldPassword: formData.get('oldPassword'),
+        newPassword: formData.get('newPassword'),
+        confirmPassword: formData.get('confirmPassword'),
+        typeUpdate: "pass",
+      });
+      
       if (updateRes.status === 200) {
         changeSuccess();
       }
@@ -175,6 +206,27 @@ function SettingsPage(){
               <button className='btn-submit'>Guardar</button>
           </form>
         </div>
+        
+        {userData?.typeSign === "credential" && (
+          <div>
+          <h1 className='text-3xl mt-20 flex justify-center'>Cambiar contraseña</h1>
+          <div className='flex justify-center'>
+            <form className='m-8 w-1/3' onSubmit={handleSubmitPassword}>
+
+                {showMessage && <div className="fixed left-1/2 transform -translate-x-1/2 top-12 bg-red-500 text-white p-2 mb-2 rounded-md text-center">{error}</div>}
+
+                <label>Contraseña antigua: </label>
+                <input type='password' className="input-default my-2" name="oldPassword" value={oldPassword} onChange={e => setOldPassword(e.target.value)}/>
+                <label className='my-2'>Nueva contraseña: </label>
+                <input type='password' className="input-default my-2"  name="newPassword" value={newPassword} onChange={e => setNewPassword(e.target.value)}/>
+                <label className='my-2'>Confirmar contraseña: </label>
+                <input type='password' className="input-default my-2"  name="confirmPassword" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)}/>
+                <button className='btn-submit'>Actualizar</button>
+            </form>
+          </div>
+        </div>
+        )}
+        
 
         <h1 className='text-3xl mt-10 flex justify-center'>Eliminar cuenta</h1>
         <div className='flex justify-center my-3'>

@@ -3,6 +3,8 @@ import { getServerSession } from "next-auth";
 import mongoose from "mongoose";
 import { NextResponse } from "next/server";
 
+// MIDDLEWARE DE AUTENTICACION PARA EL API
+
 export async function authMiddleware(req: Request, params?: {id?: string}) {
 
     try {

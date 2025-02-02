@@ -6,6 +6,7 @@ interface User {
     surname: string;
     avatar: string;
     email: string;
+    typeSign: string;
 }
 
 // Define el tipo del contexto
