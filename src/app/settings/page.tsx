@@ -172,7 +172,7 @@ function SettingsPage(){
 
   return (
     <Center>
-        <h1 className='text-3xl mt-7 flex justify-center'>Cambiar foto de perfil</h1>
+        <h1 className='text-xl sm:text-3xl mt-7 flex justify-center'>Cambiar foto de perfil</h1>
         <div className='flex justify-center mt-8 gap-8 items-center'>
           <div className=''>
             {userData?.avatar === "default.png" ? (
@@ -194,7 +194,7 @@ function SettingsPage(){
           </form>
         </div>
         
-        <h1 className='text-3xl mt-20 flex justify-center'>Cambiar datos del usuario</h1>
+        <h1 className='text-xl sm:text-3xl mt-20 flex justify-center'>Cambiar datos del usuario</h1>
         <div className='flex justify-center'>
           <form className='m-8 w-1/3' onSubmit={handleSubmit}>
 
@@ -210,7 +210,7 @@ function SettingsPage(){
         
         {userData?.typeSign === "credential" && (
           <div>
-          <h1 className='text-3xl mt-20 flex justify-center'>Cambiar contraseña</h1>
+          <h1 className='text-xl sm:text-3xl mt-20 flex justify-center'>Cambiar contraseña</h1>
           <div className='flex justify-center'>
             <form className='m-8 w-1/3' onSubmit={handleSubmitPassword}>
 
@@ -277,7 +277,7 @@ function SettingsPage(){
         )}
         
 
-        <h1 className='text-3xl mt-10 flex justify-center'>Eliminar cuenta</h1>
+        <h1 className='text-xl sm:text-3xl mt-10 flex justify-center'>Eliminar cuenta</h1>
         <div className='flex justify-center my-3'>
           <div className='w-1/4'><button className='btn-danger' onClick={deleteUser}>Eliminar</button></div>
         </div>
