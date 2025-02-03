@@ -176,7 +176,7 @@ function SettingsPage(){
         <div className='flex justify-center mt-8 gap-8 items-center'>
           <div className=''>
             {userData?.avatar === "default.png" ? (
-                <img src={'default.png'} alt="User default" className="size-10 rounded-full"/>
+                <img src={'default.png'} alt="User default" className="size-20 md:size-40 rounded-full"/>
               ) : (
                 <img src={`/avatars/${userData?.avatar}`} alt="User default" className="size-40 rounded-full" />
               )}
@@ -196,7 +196,7 @@ function SettingsPage(){
         
         <h1 className='text-xl sm:text-3xl mt-20 flex justify-center'>Cambiar datos del usuario</h1>
         <div className='flex justify-center'>
-          <form className='m-8 w-1/3' onSubmit={handleSubmit}>
+          <form className='m-8 w-4/5 md:w-1/3' onSubmit={handleSubmit}>
 
               {showMessage && <div className="fixed left-1/2 transform -translate-x-1/2 top-12 bg-red-500 text-white p-2 mb-2 rounded-md text-center">{error}</div>}
 
@@ -212,7 +212,7 @@ function SettingsPage(){
           <div>
           <h1 className='text-xl sm:text-3xl mt-20 flex justify-center'>Cambiar contraseña</h1>
           <div className='flex justify-center'>
-            <form className='m-8 w-1/3' onSubmit={handleSubmitPassword}>
+            <form className='m-8 w-4/5 md:w-1/3' onSubmit={handleSubmitPassword}>
 
                 {showMessage && <div className="fixed left-1/2 transform -translate-x-1/2 top-12 bg-red-500 text-white p-2 mb-2 rounded-md text-center">{error}</div>}
 
@@ -279,7 +279,7 @@ function SettingsPage(){
 
         <h1 className='text-xl sm:text-3xl mt-10 flex justify-center'>Eliminar cuenta</h1>
         <div className='flex justify-center my-3'>
-          <div className='w-1/4'><button className='btn-danger' onClick={deleteUser}>Eliminar</button></div>
+          <div className='w-2/5 sm:w-1/4'><button className='btn-danger' onClick={deleteUser}>Eliminar</button></div>
         </div>
     </Center>
   )

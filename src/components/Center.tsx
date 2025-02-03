@@ -8,7 +8,7 @@ interface CenterProps {
 
 export const Center: React.FC<CenterProps> = ({children}) => {
     return (
-        <div className='m-auto max-w-3xl'>
+        <div className='m-auto max-w-3xl mx-4 md:mx-auto'>
             {children}
         </div>
     )

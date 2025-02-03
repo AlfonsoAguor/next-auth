@@ -46,3 +46,13 @@ input[type="password"]{
     top: -10px;
     left: 33%;
 }
+
+@media (max-width: 1024px) {
+    .submenu{
+        transform: translateX(-60%);
+    }
+
+    .submenu:before{
+        left: 54%;
+    }
+}
